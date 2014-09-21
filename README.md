@@ -19,10 +19,10 @@ Here are the steps that were used to transform the original input data set.
 Here is a diagram, based on that provided by David Hood, showing how the input data is pieced together.
 
 
-|Variable names  | features.txt  | Subject               | Activity      | |
-| ----------------- |-------------| -----|----|
-|Data            | x_train.txt   | subject_train.txt     | y_train.txt   |activity_labels.txt| 
-|Data            |x_test.txt    | subject_test.txt      | y_test.txt    |  activity_labels.txt                 |
+|Variable names  | features.txt  | Subject               | Activity      |                              |
+| -------------- |---------------| ----------------------|---------------|------------------------------|
+|Data            | x_train.txt   | subject_train.txt     | y_train.txt   |  activity_labels.txt         | 
+|Data            | x_test.txt    | subject_test.txt      | y_test.txt    |  activity_labels.txt         |
 
 Read in the column names that apply to the x_train.txt and x_test.x data sets (using read.table) from "UCI HAR Dataset\\features.txt" apply column names "id" and "names".
 
