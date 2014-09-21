@@ -1,6 +1,8 @@
 # Convery input Samsung data into tidy data
 # Sections of the code that perform these functions are labels with comments.
 
+#Thoughout text I have annotated code with these step numbers and descirptions.
+
 #1 Merges the training and the test sets to create one data set.
 #2 Extracts only the measurements on the mean and standard deviation for each
 #  measurement.
@@ -20,6 +22,11 @@ buildframe <- function(colnames, type) {
         ##              string that indicates whether the data is
         ##              training data or test data.
         ## out: dataframe containing subject, id, data
+
+        #1 Merges the training and the test sets to create one data set.
+        #2 Extracts only the measurements on the mean and standard deviation for each
+        #  measurement.
+
         dir <- paste0("UCI HAR Dataset\\", type)
         data <- read.table(
                 paste0(dir, "\\X_", type, ".txt"),
@@ -54,6 +61,8 @@ replaceactivityidwithlabels <- function(dataframe) {
         # in:   dataframe with activities identified by an id (numbers)
         # out:  datatframe - activities indicated by labels and ids removed
 
+        #3 Uses descriptive activity names to name the activities in the data set
+
         #read in activity labels
         act_labels <- read.table("UCI HAR Dataset\\activity_labels.txt",
                                  col.names = c("activityID", "activity"),
@@ -63,8 +72,10 @@ replaceactivityidwithlabels <- function(dataframe) {
         # Merge the activity labels with the data
         mergeddata <- merge(act_labels, dataframe,
                        by="activityID", sort=FALSE)
-        # remove activity id
-        mergeddatawithlabels <- mergeddata[, -1]
+        # remove activity id (it is the first column)
+        mergeddata[, 1] <- NULL
+        mergeddatawithlabels <- mergeddata
+
 }
 
 betternames <- function(testtrain) {
@@ -75,6 +86,9 @@ betternames <- function(testtrain) {
         # out:  datatframe with abbreviations expanded
         #       to longer (more meaningful names),
         #       and puncuation characters removed.
+
+        #4 Appropriately labels the data set with descriptive variable names.
+
         colnames <- colnames(testtrain)
         colnames <- gsub("-", "", colnames)
         colnames <- gsub("std", "StandardDeviation", colnames)
@@ -87,6 +101,7 @@ betternames <- function(testtrain) {
         colnames <- gsub("^t", "", colnames)
         colnames <- gsub("(\\())", "", colnames)
         colnames <- gsub("(\\.)", "", colnames)
+        colnames <- gsub("BodyBody", "Body", colnames)
         colnames(testtrain) <- colnames
         testtrain
 }
@@ -117,9 +132,15 @@ write.table(pretty,
 ###########################      Change labels to indicate avereage
 # Create an independent tidy data set with the average of each variable
 # for each activity and each subject.
+#5 Creates a second, independent tidy data set with the average of each
+#  variable for each activity and each subject.
 activitysubjectaveragevar <- aggregate(. ~ activity + subjectID, pretty, mean)
+colnames <- colnames(activitysubjectaveragevar)
+colnames[3:length(colnames)] <- gsub("^","Mean", colnames[3:length(colnames)])
+colnames(activitysubjectaveragevar) <- colnames
 
 # Save data set without row names.
 write.table(activitysubjectaveragevar,
             file="activitysubjectaveragevar.txt",
             row.name=FALSE)
+
