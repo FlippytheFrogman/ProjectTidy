@@ -1,25 +1,33 @@
 Codebook
 
-From the original documenation (in the zip file)
+
+In order to understand that data set that I have created, I felt it was important to start with the following original overview. I have add text following it that explains the tidy data set.
+
+From the original documentation (in the zip file)
 
 The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals. These time domain signals were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
 
-Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals . Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm . 
+Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals . Also, the magnitude of these three-dimensional signals were calculated using the Euclidean norm. 
 
 Finally a Fast Fourier Transform (FFT) was applied to some of these signals.
  
 These signals were used to estimate variables of the feature vector for each pattern.
 
-Here are the steps that were followed to create the output data set.
+---
+Here are the steps that were followed to create the output tidy data set.
 
 1    Merged the training and the test sets to create one data set.
 2    Extracted the measurements on the mean and standard deviation for each measurement. 
 3    Used descriptive activity names to name the activities in the data set
 4    Provided descriptive variable names. 
-5    Created a second, independent tidy data set with the average of each variable for each activity and  subject.  This was done by taking the average of the sample data provided.
+5    Created a second, independent tidy data set with the average of each variable for each activity and  subject.  This was done by taking the mean of the sample data provided.
+More information is available in the "README.md" file.
 
-The following is the transformed data.  Rows 3 - 81 are normalized and bounded within [-1,1].
+The following describes the transformed data.
 
+Rows 3 - 81 are:
+normalized and **bounded within [-1,1]**.
+mean of the input data samples (calculated by subject id and activity) 
 
 * [1] "activity" - String indicating the activity that the subject was undertaking: "WALKING", "WALKING_UPSTAIRS", "WALKING_DOWNSTAIRS", "SITTING", "STANDING" and, "LAYING".
 * [2] "subjectID" - Integer subject identifier (There are 30 subjects. i.e. 1 represents person 1).  
